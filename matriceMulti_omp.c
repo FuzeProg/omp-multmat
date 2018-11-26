@@ -12,6 +12,15 @@
 #include <time.h>
 #include <omp.h>
 
+/* ------------------- START - DEFINITIONS ------------------- */
+
+// Size of the matrices (SIZE x SIZE)
+#define SIZE 8000
+// Number of threads used to execute the program
+#define NBTHREAD 2
+
+/* ------------------- END - DEFINITIONS ------------------- */
+
 /* ------------------- START - FUNCTIONS ------------------- */
 
 // Initialize the matrice and fill it with 0
@@ -68,15 +77,13 @@ float **mult_mat(float **a, float **b, float **r, int n) {
 /* ------------------- START - MAIN ------------------- */
 
 int main() {
-    // Size of the matrices (size x size)
-    int size = 1000;
+    // Matrice A, B and Result
     float **matA, **matB, **matR = 0;
-    int nbthreads = 2;
 
     double start, finish, wtime;
 
     // Setting the number of threads
-    omp_set_num_threads(nbthreads);
+    omp_set_num_threads(NBTHREAD);
 
     matA = init_mat(size);
     matB = init_mat(size);
@@ -93,7 +100,7 @@ int main() {
     // Total time during the execution
     wtime = finish - start;
 
-    printf("Running with %d threads. \n", nbthreads);
+    printf("Running with %d threads. \n", NBTHREAD);
     printf("Elapsed wall clock time = %f seconds.\n", wtime);
 
     printf("\nTerminé !\n\n");

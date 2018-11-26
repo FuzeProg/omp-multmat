@@ -56,6 +56,7 @@ float **mult_mat(float **a, float **b, float **r, int n) {
 /* ------------------- START - MAIN ------------------- */
 
 int main() {
+    // Matrice A, B and Result
     float **matA, **matB, **matR = 0;
 
     clock_t start, finish;
