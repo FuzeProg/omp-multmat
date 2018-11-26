@@ -12,7 +12,7 @@
 /* ------------------- START - DEFINITIONS ------------------- */
 
 // Size of the matrices (SIZE x SIZE)
-#define SIZE 8000
+#define SIZE 1000
 
 /* ------------------- END - DEFINITIONS ------------------- */
 
@@ -69,7 +69,7 @@ int main() {
     // Collect the time at the start of the program
     start = clock();
 
-    matR = mult_mat(matA, matB, matR, size);
+    matR = mult_mat(matA, matB, matR, SIZE);
 
     // Collect the time at the end of the program
     finish = clock();

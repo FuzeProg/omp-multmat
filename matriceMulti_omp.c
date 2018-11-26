@@ -15,9 +15,9 @@
 /* ------------------- START - DEFINITIONS ------------------- */
 
 // Size of the matrices (SIZE x SIZE)
-#define SIZE 8000
+#define SIZE 1000
 // Number of threads used to execute the program
-#define NBTHREAD 2
+#define NBTHREAD 8
 
 /* ------------------- END - DEFINITIONS ------------------- */
 
@@ -85,14 +85,14 @@ int main() {
     // Setting the number of threads
     omp_set_num_threads(NBTHREAD);
 
-    matA = init_mat(size);
-    matB = init_mat(size);
-    matR = init_mat(size);
+    matA = init_mat(SIZE);
+    matB = init_mat(SIZE);
+    matR = init_mat(SIZE);
 
     // Collect the time at the start of the programm
     start = omp_get_wtime();
 
-    matR = mult_mat(matA, matB, matR, size);
+    matR = mult_mat(matA, matB, matR, SIZE);
 
     // Collect the time at the end of the programm
     finish = omp_get_wtime();
