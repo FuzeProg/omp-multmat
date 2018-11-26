@@ -93,7 +93,7 @@ int main() {
     // Total time during the execution
     wtime = finish - start;
 
-    printf("Running with %d threads. \n", omp_get_num_threads());
+    printf("Running with %d threads. \n", nbthreads);
     printf("Elapsed wall clock time = %f seconds.\n", wtime);
 
     printf("\nTerminé !\n\n");
