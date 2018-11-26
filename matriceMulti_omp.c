@@ -15,7 +15,7 @@
 /* ------------------- START - DEFINITIONS ------------------- */
 
 // Size of the matrices (SIZE x SIZE)
-#define SIZE 1000
+#define SIZE 3000
 // Number of threads used to execute the program
 #define NBTHREAD 8
 
