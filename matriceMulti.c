@@ -76,7 +76,8 @@ int main() {
     // Total time during the execution
     exec_time = (float)(finish-start)/CLOCKS_PER_SEC;
 
-    printf("Elapsed wall clock time = %f seconds.\n", exec_time);
+    printf("Running with %d threads. \n", nbthreads);
+    printf("Elapsed wall clock time = %f seconds.\n", wtime);
 
     printf("\nTerminé !\n\n");
 }
