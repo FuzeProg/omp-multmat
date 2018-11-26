@@ -1,8 +1,6 @@
 //
-// MatriceMulti.c
-// The objective is to implement openMP in this programm to know how it work.
+// matriceMulti.c
 // Source code : UPHF Moodle - NIAR S.
-// Source OpenMP functions : https://www.openmp.org/wp-content/uploads/OpenMP-4.0-C.pdf
 // Edited by : MARECHAL Anthony - MOZDZIERZ Ombeline
 //
 
@@ -10,7 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <omp.h>
+
+/* ------------------- START - DEFINITIONS ------------------- */
+
+// Size of the matrices (SIZE x SIZE)
+#define SIZE 8000
+
+/* ------------------- END - DEFINITIONS ------------------- */
 
 /* ------------------- START - FUNCTIONS ------------------- */
 
@@ -35,21 +39,6 @@ float **init_mat(int n) {
 // Multiply the matrices between them and fill the r matrice with the result
 float **mult_mat(float **a, float **b, float **r, int n) {
     int i, j, k;
-
-    /*
-     * Matrices a, b and r will be shared through the threads.
-     * i, j and k loop variables will be private to a thread.
-     */
-
-#pragma omp parallel shared(a, b, r) private(i, j, k)
-    {
-
-        /*
-         * Iterations will be executed in parallel from threads.
-         * schedule is the clause which specify the sharing politic.
-         * static will divide the iterations into chunk blocks.
-         */
-#pragma omp for schedule(static)
         for (i = 0; i < n; i = i + 1) {
             for (j = 0; j < n; j = j + 1) {
                 a[i][j] = 0;
@@ -58,7 +47,6 @@ float **mult_mat(float **a, float **b, float **r, int n) {
                 }
             }
         }
-    }
     return 0;
 }
 
@@ -68,33 +56,27 @@ float **mult_mat(float **a, float **b, float **r, int n) {
 /* ------------------- START - MAIN ------------------- */
 
 int main() {
-    // Size of the matrices (size x size)
-    int size = 1000;
     float **matA, **matB, **matR = 0;
-    int nbthreads = 2;
 
-    double start, finish, wtime;
+    clock_t start, finish;
+    float exec_time;
 
-    // Setting the number of threads
-    omp_set_num_threads(nbthreads);
+    matA = init_mat(SIZE);
+    matB = init_mat(SIZE);
+    matR = init_mat(SIZE);
 
-    matA = init_mat(size);
-    matB = init_mat(size);
-    matR = init_mat(size);
-
-    // Collect the time at the start of the programm
-    start = omp_get_wtime();
+    // Collect the time at the start of the program
+    start = clock();
 
     matR = mult_mat(matA, matB, matR, size);
 
-    // Collect the time at the end of the programm
-    finish = omp_get_wtime();
+    // Collect the time at the end of the program
+    finish = clock();
 
     // Total time during the execution
-    wtime = finish - start;
+    exec_time = (float)(finish-start)/CLOCKS_PER_SEC;
 
-    printf("Running with %d threads. \n", omp_get_num_threads());
-    printf("Elapsed wall clock time = %f seconds.\n", wtime);
+    printf("Elapsed wall clock time = %f seconds.\n", exec_time);
 
     printf("\nTerminé !\n\n");
 }
